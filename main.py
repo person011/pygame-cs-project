@@ -7,7 +7,7 @@ res = (500, 600)
 
 #screen=pygame.display.set_mode((500, 600))
 screen = pygame.display.set_mode(res, pygame.RESIZABLE)
-
+print(1)
 color = (255, 255, 255)
 color_light = (170, 170, 170)
 color_dark = (100, 100, 100)
