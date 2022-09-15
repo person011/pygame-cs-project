@@ -42,3 +42,4 @@ while True:
     screen.blit(text2, (180 + 50, 130))
     pygame.display.update()
 
+#hi i made a change
