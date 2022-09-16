@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
 
-def screen_resize(width, height, event):
+def screen_resize(event):
     if event.type == QUIT: pygame.display.quit()
     """elif event.type == VIDEORESIZE:
             width, height = event.size
