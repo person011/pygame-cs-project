@@ -2,6 +2,7 @@ import pygame
 import os
 from Properties.button import Button
 from Properties.size import size_x, size_y
+from Properties.screen_resize import screen_resize
 def HomeScreen(screen):
 
     color = (255, 255, 255)
@@ -19,8 +20,7 @@ def HomeScreen(screen):
         mouse = pygame.mouse.get_pos()
         for ev in pygame.event.get():
 
-            if ev.type == pygame.QUIT:
-                pygame.quit()
+            screen_resize(width, height, ev)
             
             if quitButton.pressed(ev, mouse)==True:
                 pygame.quit()
