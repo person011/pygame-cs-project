@@ -17,10 +17,11 @@ def HomeScreen(screen):
     quitButton=Button(380, 630, 180, 90, text)
     toMainButton=Button(380, 330, 180, 90, text2)
     while True:
+        
         mouse = pygame.mouse.get_pos()
         for ev in pygame.event.get():
 
-            screen_resize(width, height, ev)
+            screen_resize(ev)
             
             if quitButton.pressed(ev, mouse)==True:
                 pygame.quit()
