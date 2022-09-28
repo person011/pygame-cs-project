@@ -3,8 +3,7 @@ import os
 from Properties.button import Button
 from Properties.size import size_x, size_y
 from Properties.screen_resize import screen_resize
-from Screens.MainGameScreen import MainGameScreen
-def HomeScreen(screen):
+def MainGameScreen(screen):
 
     color = (255, 255, 255)
     color_light = (170, 170, 170)
@@ -27,13 +26,13 @@ def HomeScreen(screen):
             if quitButton.pressed(ev, mouse)==True:
                 pygame.quit()
             if toMainButton.pressed(ev, mouse)==True:
-                MainGameScreen(screen)
+                pass
         screen.fill((230, 230, 230))
         mouse = pygame.mouse.get_pos()
         
         
-        quitButton.hovering_color(color_dark, color_light, screen, mouse)
-        toMainButton.hovering_color(color_dark, color_light, screen, mouse)
+        #quitButton.hovering_color(color_dark, color_light, screen, mouse)
+        #toMainButton.hovering_color(color_dark, color_light, screen, mouse)
             
         
         pygame.display.update()
