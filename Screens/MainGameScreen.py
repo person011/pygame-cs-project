@@ -18,7 +18,7 @@ def MainGameScreen(screen):
     character_img=pygame.image.load("Images/square.png")
     #quitButton=Button(380, 630, 180, 90, text)
     #toMainButton=Button(380, 330, 180, 90, text2)
-    player=Player(screen, 0, 0, 80, 160, character_img)
+    player=Player(screen, 0, 1000, 80, 160, character_img)
     while True:
         
         mouse = pygame.mouse.get_pos()
