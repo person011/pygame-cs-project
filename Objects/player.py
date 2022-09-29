@@ -2,8 +2,8 @@ import pygame
 class Player:
     def __init__(self, screen, spawn_x, spawn_y, image):
         self.screen=screen
-        self.spawn_x=spawn_x
-        self.spawn_y=spawn_y
-        self.image=self.image
+        self.x=spawn_x
+        self.y=spawn_y
+        self.image=image
     def draw(self):
-        pygame.image.load(self.image)
+        self.screen.blit(self.image, (self.x, self.y))
