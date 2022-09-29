@@ -31,7 +31,7 @@ class Player:
                 neg = 1
                 if self.jumpCount < 0:
                     neg = -1
-                self.y -= self.jumpCount**2 * 0.8 * neg
+                self.y -= self.jumpCount**2 * 0.4 * neg
                 self.jumpCount -= 1
             else:
                 self.isJump = False
