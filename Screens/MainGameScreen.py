@@ -33,13 +33,14 @@ def MainGameScreen(screen):
                 pygame.quit()
             if toMainButton.pressed(ev, mouse)==True:
                 pass"""
+        keys = pygame.key.get_pressed()
         screen.fill((230, 230, 230))
         mouse = pygame.mouse.get_pos()
         
         
         #quitButton.hovering_color(color_dark, color_light, screen, mouse)
         #toMainButton.hovering_color(color_dark, color_light, screen, mouse)
-        player.movement()
+        player.movement(keys)
         player.jump()
         player.draw()
         

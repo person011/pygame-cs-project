@@ -1,4 +1,4 @@
-from tkinter import image_names
+#from tkinter import image_names
 import pygame
 
 #from Properties.size import size, size_x, size_y
