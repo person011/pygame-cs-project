@@ -4,6 +4,7 @@ from Properties.button import Button
 from Properties.size import size_x, size_y
 from Properties.screen_resize import screen_resize
 from Objects.player import Player
+from config import FPS
 def MainGameScreen(screen):
 
     color = (255, 255, 255)
@@ -18,9 +19,9 @@ def MainGameScreen(screen):
     character_img=pygame.image.load("Images/square.png")
     #quitButton=Button(380, 630, 180, 90, text)
     #toMainButton=Button(380, 330, 180, 90, text2)
-    player=Player(screen, 0, 1000, 80, 160, character_img)
+    player=Player(screen, 0, 920, 80, 160, character_img)
     while True:
-        
+        pygame.time.delay(FPS)
         mouse = pygame.mouse.get_pos()
         for ev in pygame.event.get():
 
