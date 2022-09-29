@@ -18,14 +18,17 @@ def MainGameScreen(screen):
     character_img=pygame.image.load("Images/square.png")
     #quitButton=Button(380, 630, 180, 90, text)
     #toMainButton=Button(380, 330, 180, 90, text2)
-    player=Player(screen, 100, 100, character_img)
+    player=Player(screen, 0, 0, 80, 160, character_img)
     while True:
         
         mouse = pygame.mouse.get_pos()
         for ev in pygame.event.get():
 
             screen_resize(ev)
-            
+            if ev.type == pygame.KEYDOWN:
+                if ev.key == pygame.K_UP:
+                    # Start to jump by setting isJump to True.
+                    player.isJump = True
             """if quitButton.pressed(ev, mouse)==True:
                 pygame.quit()
             if toMainButton.pressed(ev, mouse)==True:
@@ -36,6 +39,8 @@ def MainGameScreen(screen):
         
         #quitButton.hovering_color(color_dark, color_light, screen, mouse)
         #toMainButton.hovering_color(color_dark, color_light, screen, mouse)
+        player.movement()
+        player.jump()
         player.draw()
         
         pygame.display.update()
