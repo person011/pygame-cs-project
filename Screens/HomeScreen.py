@@ -27,7 +27,7 @@ def HomeScreen(screen):
             if quitButton.pressed(ev, mouse)==True:
                 pygame.quit()
             if toMainButton.pressed(ev, mouse)==True:
-                MainGameScreen()
+                MainGameScreen().main_loop()
         screen.fill((230, 230, 230))
         mouse = pygame.mouse.get_pos()
         

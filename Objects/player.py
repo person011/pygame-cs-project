@@ -7,7 +7,7 @@ class Player(_Physics, pygame.sprite.Sprite):
         
         _Physics.__init__(self)
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load('Images/ghost.png')
+        self.image = pygame.image.load('Images/square.png')
         #self.image = pygame.Surface((30,55)).convert()
         #self.image.fill(pygame.Color("red"))
         self.image_left=pygame.transform.flip(self.image, True, False)
