@@ -52,7 +52,7 @@ class MovingBlock(Block):
             axis = self.axis
             offset = (speed, speed)
             player.check_collisions(offset, axis, obstacles)
-            player.hurt_player(100)
+            player.hurt_player(10)
             if pygame.sprite.collide_rect(self, player):
                 
                 if self.speed > 0:
