@@ -3,7 +3,7 @@ from Properties._Physics import _Physics
 
 class Player(_Physics, pygame.sprite.Sprite):
 
-    def __init__(self,location,speed):
+    def __init__(self,location,speed,spawn_point):
         
         _Physics.__init__(self)
         pygame.sprite.Sprite.__init__(self)
@@ -19,7 +19,13 @@ class Player(_Physics, pygame.sprite.Sprite):
         self.jump_cut_magnitude = -3.0
         self.on_moving = False
         self.collide_below = False
-
+        self.main_health=100
+        self.health=100
+        self.spawn_point=spawn_point
+    def hurt_player(self, amount):
+        self.health-=amount
+        #print(123)
+        return self.health-amount
     def check_keys(self, keys):
         
         self.x_vel = 0
@@ -101,13 +107,17 @@ class Player(_Physics, pygame.sprite.Sprite):
         
         self.collide_below = self.check_below(obstacles)
         self.check_moving(obstacles)
-
+    def kill_player(self):
+        self.rect.x=self.spawn_point[0]
+        self.rect.y=self.spawn_point[1]
+        self.health=self.main_health
     def update(self, obstacles, keys):
-        
+        if self.health<1:
+            self.kill_player()
         self.check_keys(keys)
         self.get_position(obstacles)
         self.physics_update()
 
     def draw(self, surface):
-        
+        pygame.draw.rect(surface, (0, 0, 0),  [self.rect.x-500, 50, 200, 50])
         surface.blit(self.main_image, self.rect)

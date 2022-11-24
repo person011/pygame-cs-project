@@ -3,7 +3,8 @@ import os
 from Properties.button import Button
 from Properties.size import size_x, size_y
 from Objects.player import Player
-from Objects.block import Block
+from Objects.block import Block, MovingBlock
+from Objects.health_bar import HealthBar
 from config import *
 
 
@@ -18,9 +19,10 @@ class MainGameScreen(object):
         self.fps = 60.0
         self.keys = pygame.key.get_pressed()
         self.done = False
-        self.player = Player((50,875), 4)
+        self.player = Player((50,875), 4, (50, 875))
         self.viewport = self.screen.get_rect()
         #print(self.viewport)
+        self.HealthBar=HealthBar(self.player)
         self.level = pygame.Surface((3050, 1000)).convert()
         
         self.level_rect = self.level.get_rect()
@@ -44,8 +46,9 @@ class MainGameScreen(object):
         static = [Block(pygame.Color("black"), (250,880,200,100)),
                 
                   ]
-        
-        return pygame.sprite.Group(walls, static)
+        moving = [MovingBlock(pygame.Color("black"), (200,740,75,20), 325, 0),
+                  ]
+        return pygame.sprite.Group(walls, static, moving)
 
     def update_viewport(self):
         
@@ -79,6 +82,7 @@ class MainGameScreen(object):
     def draw(self):
         
         self.level.fill((82, 84, 84))
+        self.HealthBar.draw(self.level)
         self.obstacles.draw(self.level)
         self.level.blit(self.win_text, self.win_rect)
         self.player.draw(self.level)
