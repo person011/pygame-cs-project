@@ -24,7 +24,7 @@ class MainGameScreen(object):
         #print(self.viewport)
         self.HealthBar=HealthBar(self.player)
         self.level = pygame.Surface((3050, 1000)).convert()
-        
+        self.overlay=pygame.display.get_surface()
         self.level_rect = self.level.get_rect()
         
         self.win_text,self.win_rect = self.make_text()
@@ -82,12 +82,15 @@ class MainGameScreen(object):
     def draw(self):
         
         self.level.fill((82, 84, 84))
-        self.HealthBar.draw(self.level)
+        
+        
         self.obstacles.draw(self.level)
         self.level.blit(self.win_text, self.win_rect)
         self.player.draw(self.level)
         self.screen.blit(self.level, (0,0), self.viewport)
-
+    def draw_overlay(self):
+        
+        self.HealthBar.draw(self.overlay)
     def display_fps(self):
         
         caption = "{} - FPS: {:.2f}".format(CAPTION, self.clock.get_fps())
@@ -99,6 +102,7 @@ class MainGameScreen(object):
             self.event_loop()
             self.update()
             self.draw()
+            self.draw_overlay()
             pygame.display.update()
             self.clock.tick(self.fps)
             self.display_fps()

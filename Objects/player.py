@@ -119,5 +119,5 @@ class Player(_Physics, pygame.sprite.Sprite):
         self.physics_update()
 
     def draw(self, surface):
-        pygame.draw.rect(surface, (0, 0, 0),  [self.rect.x-500, 50, 200, 50])
+        
         surface.blit(self.main_image, self.rect)
