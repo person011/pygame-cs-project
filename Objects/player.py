@@ -1,5 +1,6 @@
 import pygame
 from Properties._Physics import _Physics
+import time
 
 class Player(_Physics, pygame.sprite.Sprite):
 
@@ -21,10 +22,18 @@ class Player(_Physics, pygame.sprite.Sprite):
         self.collide_below = False
         self.main_health=100
         self.health=100
+        self.can_get_hurt=True
         self.spawn_point=spawn_point
+        self.start_ticks=pygame.time.get_ticks()
     def hurt_player(self, amount):
-        self.health-=amount
+        if self.can_get_hurt==True:
+            self.health-=amount
+            self.can_get_hurt=False
+            seconds=(pygame.time.get_ticks()-self.start_ticks)/1000
+            if seconds>3:
+                self.can_get_hurt=True
         #print(123)
+    
         return self.health-amount
     def check_keys(self, keys):
         
@@ -111,12 +120,13 @@ class Player(_Physics, pygame.sprite.Sprite):
         self.rect.x=self.spawn_point[0]
         self.rect.y=self.spawn_point[1]
         self.health=self.main_health
-    def update(self, obstacles, keys):
+    def update(self, obstacles, keys, ):
         if self.health<1:
             self.kill_player()
         self.check_keys(keys)
         self.get_position(obstacles)
         self.physics_update()
+        
 
     def draw(self, surface):
         

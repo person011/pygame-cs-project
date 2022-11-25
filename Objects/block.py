@@ -1,5 +1,5 @@
 import pygame
-
+import time
 class Block(pygame.sprite.Sprite):
     """A class representing solid obstacles."""
     def __init__(self, color, rect):
@@ -30,6 +30,7 @@ class MovingBlock(Block):
         obstacles = obstacles.copy()
         obstacles.remove(self)
         now = pygame.time.get_ticks()
+        self.move_player(now, player, obstacles, 10)
         if not self.waiting:
             speed = self.speed
             start_passed = self.start >= self.rect[self.axis]+speed
@@ -41,25 +42,28 @@ class MovingBlock(Block):
                     speed = self.end-self.rect[self.axis]
                 self.change_direction(now)
             self.rect[self.axis] += speed
-            self.move_player(now, player, obstacles, speed)
+            
         elif now-self.timer > self.delay:
             self.waiting = False
 
     def move_player(self, now, player, obstacles, speed):
-        #print(player.on_moving is self, player)
+        #print(player.on_moving is self, player)self, now, player, obstacles, speed
+        
         if player.on_moving is self or pygame.sprite.collide_rect(self,player):
             
             axis = self.axis
-            offset = (speed, speed)
+            offset = (0, 0)
             player.check_collisions(offset, axis, obstacles)
             player.hurt_player(10)
-            if pygame.sprite.collide_rect(self, player):
+            
+
+            """if pygame.sprite.collide_rect(self, player):
                 
                 if self.speed > 0:
                     self.rect[axis] = player.rect[axis]-self.rect.size[axis]
                 else:
                     self.rect[axis] = player.rect[axis]+player.rect.size[axis]
-                self.change_direction(now)
+                self.change_direction(now)"""
 
     def change_direction(self, now):
         

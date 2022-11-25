@@ -46,8 +46,8 @@ class MainGameScreen(object):
         static = [Block(pygame.Color("black"), (250,880,200,100)),
                 
                   ]
-        moving = [MovingBlock(pygame.Color("black"), (200,740,75,20), 325, 0),
-                  ]
+        moving = [MovingBlock(pygame.Color("black"), (500, 940,75,20), 325, 0, speed=0),
+                  ]#325
         return pygame.sprite.Group(walls, static, moving)
 
     def update_viewport(self):
@@ -71,15 +71,15 @@ class MainGameScreen(object):
                 if event.key == pygame.K_SPACE:
                     self.player.jump_cut()
 
-    def update(self):
+    def update(self, ):
         
         self.keys = pygame.key.get_pressed()
         self.player.pre_update(self.obstacles)
         self.obstacles.update(self.player, self.obstacles)
-        self.player.update(self.obstacles, self.keys)
+        self.player.update(self.obstacles, self.keys, )
         self.update_viewport()
 
-    def draw(self):
+    def draw(self, ):
         
         self.level.fill((82, 84, 84))
         
@@ -106,3 +106,4 @@ class MainGameScreen(object):
             pygame.display.update()
             self.clock.tick(self.fps)
             self.display_fps()
+            
