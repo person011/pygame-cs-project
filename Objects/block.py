@@ -1,11 +1,14 @@
 import pygame
 import time
+
+
 class Block(pygame.sprite.Sprite):
     """A class representing solid obstacles."""
     def __init__(self, color, rect):
         """The color is an (r,g,b) tuple; rect is a rect-style argument."""
         pygame.sprite.Sprite.__init__(self)
         self.rect = pygame.Rect(rect)
+        
         self.image = pygame.Surface(self.rect.size).convert()
         self.image.fill(color)
         self.type = "normal"
@@ -24,11 +27,11 @@ class HurtBlock(Block):
         self.speed = speed
         self.waiting = False
         self.type = "moving"
-
+        self.rect2=pygame.Rect([rect[0]-1, rect[1]-1, rect[2]+2, rect[3]+2])
     def update(self, player, obstacles):
         
         obstacles = obstacles.copy()
-        obstacles.remove(self)
+        #obstacles.remove(self)
         now = pygame.time.get_ticks()
         self.hurt_player(now, player, obstacles, 10)
         """if not self.waiting:
@@ -49,10 +52,10 @@ class HurtBlock(Block):
     def hurt_player(self, now, player, obstacles, speed):
         #print(player.on_moving,pygame.sprite.collide_rect(self,player))
         
-        #print(self.rect.colliderect(player.rect))
-        
-        print(player.rect.topleft)
-        if player.on_moving is self or pygame.sprite.collide_rect(self,player):
+        print(self.rect2.colliderect(player.rect), 123)
+    
+        #print(player.rect.topleft)
+        if player.on_moving is self or pygame.sprite.collide_rect(self,player) or self.rect2.colliderect(player.rect):
             
             axis = self.axis
             offset = (0, 0)
@@ -61,17 +64,17 @@ class HurtBlock(Block):
             player.hurt_player(10)
             
 
-            """if pygame.sprite.collide_rect(self, player):
+            if pygame.sprite.collide_rect(self, player):
                 
                 if self.speed > 0:
                     self.rect[axis] = player.rect[axis]-self.rect.size[axis]
                 else:
                     self.rect[axis] = player.rect[axis]+player.rect.size[axis]
-                self.change_direction(now)"""
+                self.change_direction(now)
+                
 
     def change_direction(self, now):
         
         self.waiting = True
         self.timer = now
         self.speed *= -1
-
