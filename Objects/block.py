@@ -52,7 +52,7 @@ class HurtBlock(Block):
     def hurt_player(self, now, player, obstacles, speed):
         #print(player.on_moving,pygame.sprite.collide_rect(self,player))
         
-        print(self.rect2.colliderect(player.rect), 123)
+        #print(self.rect2.colliderect(player.rect), 123)
     
         #print(player.rect.topleft)
         if player.on_moving is self or pygame.sprite.collide_rect(self,player) or self.rect2.colliderect(player.rect):
@@ -64,17 +64,17 @@ class HurtBlock(Block):
             player.hurt_player(10)
             
 
-            if pygame.sprite.collide_rect(self, player):
+            """if pygame.sprite.collide_rect(self, player):
                 
                 if self.speed > 0:
                     self.rect[axis] = player.rect[axis]-self.rect.size[axis]
                 else:
                     self.rect[axis] = player.rect[axis]+player.rect.size[axis]
-                self.change_direction(now)
+                self.change_direction(now)"""
                 
 
-    def change_direction(self, now):
+    """def change_direction(self, now):
         
         self.waiting = True
         self.timer = now
-        self.speed *= -1
+        self.speed *= -1"""

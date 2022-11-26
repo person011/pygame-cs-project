@@ -26,7 +26,7 @@ class Player(_Physics, pygame.sprite.Sprite):
         self.spawn_point=spawn_point
         self.start_ticks=pygame.time.get_ticks()
         self.clock = pygame.time.Clock()
-        self.timer=3
+        self.timer=2
         self.dt=0
     def hurt_player(self, amount):
         #print(self.can_get_hurt)
@@ -38,7 +38,7 @@ class Player(_Physics, pygame.sprite.Sprite):
             #print(self.timer)
             self.timer-=self.dt
             if self.timer<1:
-                self.timer=3
+                self.timer=2
                 #print(seconds)
                 #seconds=0
                 self.health-=amount
