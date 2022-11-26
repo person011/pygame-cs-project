@@ -25,13 +25,28 @@ class Player(_Physics, pygame.sprite.Sprite):
         self.can_get_hurt=True
         self.spawn_point=spawn_point
         self.start_ticks=pygame.time.get_ticks()
+        self.clock = pygame.time.Clock()
+        self.timer=3
+        self.dt=0
     def hurt_player(self, amount):
+        #print(self.can_get_hurt)
         if self.can_get_hurt==True:
-            self.health-=amount
-            self.can_get_hurt=False
-            seconds=(pygame.time.get_ticks()-self.start_ticks)/1000
-            if seconds>3:
+            #self.health-=amount
+            #self.can_get_hurt=False
+            #seconds=(pygame.time.get_ticks()-self.start_ticks)/1000
+            #print(0)
+            #print(self.timer)
+            self.timer-=self.dt
+            if self.timer<1:
+                self.timer=3
+                #print(seconds)
+                #seconds=0
+                self.health-=amount
                 self.can_get_hurt=True
+                #seconds=(pygame.time.get_ticks()-self.start_ticks)/1000
+            
+            self.dt=self.clock.tick(30)/1000
+            #print(self.dt)
         #print(123)
     
         return self.health-amount

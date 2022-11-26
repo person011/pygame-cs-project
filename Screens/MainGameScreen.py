@@ -3,7 +3,7 @@ import os
 from Properties.button import Button
 from Properties.size import size_x, size_y
 from Objects.player import Player
-from Objects.block import Block, MovingBlock
+from Objects.block import Block, HurtBlock
 from Objects.health_bar import HealthBar
 from config import *
 
@@ -46,7 +46,7 @@ class MainGameScreen(object):
         static = [Block(pygame.Color("black"), (250,880,200,100)),
                 
                   ]
-        moving = [MovingBlock(pygame.Color("black"), (500, 940,75,20), 325, 0, speed=0),
+        moving = [HurtBlock(pygame.Color("black"), (500, 900,75,90), 325, 0, speed=0),
                   ]#325
         return pygame.sprite.Group(walls, static, moving)
 

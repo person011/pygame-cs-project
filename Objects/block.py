@@ -9,7 +9,7 @@ class Block(pygame.sprite.Sprite):
         self.image = pygame.Surface(self.rect.size).convert()
         self.image.fill(color)
         self.type = "normal"
-class MovingBlock(Block):
+class HurtBlock(Block):
     
     def __init__(self, color, rect, end, axis, delay=500, speed=2, start=None):
         
@@ -30,8 +30,8 @@ class MovingBlock(Block):
         obstacles = obstacles.copy()
         obstacles.remove(self)
         now = pygame.time.get_ticks()
-        self.move_player(now, player, obstacles, 10)
-        if not self.waiting:
+        self.hurt_player(now, player, obstacles, 10)
+        """if not self.waiting:
             speed = self.speed
             start_passed = self.start >= self.rect[self.axis]+speed
             end_passed = self.end <= self.rect[self.axis]+speed
@@ -44,16 +44,20 @@ class MovingBlock(Block):
             self.rect[self.axis] += speed
             
         elif now-self.timer > self.delay:
-            self.waiting = False
+            self.waiting = False"""
 
-    def move_player(self, now, player, obstacles, speed):
-        #print(player.on_moving is self, player)self, now, player, obstacles, speed
+    def hurt_player(self, now, player, obstacles, speed):
+        #print(player.on_moving,pygame.sprite.collide_rect(self,player))
         
+        #print(self.rect.colliderect(player.rect))
+        
+        print(player.rect.topleft)
         if player.on_moving is self or pygame.sprite.collide_rect(self,player):
             
             axis = self.axis
             offset = (0, 0)
-            player.check_collisions(offset, axis, obstacles)
+            #print(player.check_collisions(offset, axis, obstacles))
+
             player.hurt_player(10)
             
 
