@@ -14,7 +14,7 @@ def HomeScreen(screen):
     smallfont = pygame.font.SysFont('Corbel', 35)
     text = smallfont.render('quit', True, color)
     text2 = smallfont.render('play', True, color)
-    print(text.get_width())
+    #print(text.get_width())
     quitButton=Button(380, 630, 180, 90, text)
     toMainButton=Button(380, 330, 180, 90, text2)
     while True:
