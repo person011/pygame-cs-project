@@ -29,7 +29,7 @@ class MainGameScreen(object):
         
         self.win_text,self.win_rect = self.make_text()
         self.obstacles = self.make_obstacles()
-        self.block_size=50
+        #self.block_size=50
     def make_text(self):
         
         font = pygame.font.Font(None, 100)
@@ -46,7 +46,7 @@ class MainGameScreen(object):
         static = [Block(pygame.Color("black"), (250,950, block_size, block_size)),
                 
                   ]
-        moving = [HurtBlock(pygame.Color("black"), (500, 950, block_size, block_size), 325, 0, speed=0),
+        moving = [HurtBlock(pygame.Color("black"), (500, 950, block_size, block_size)),
                   ]#325
         return pygame.sprite.Group(walls, static, moving)
 
