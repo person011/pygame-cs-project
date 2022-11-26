@@ -40,18 +40,18 @@ class MainGameScreen(object):
 
     def make_obstacles(self):
         block_size=50
-        def make_blockx(x, y, size):
+        def make_block(x, y, size):
             return (x*size, y*size, size, size)
         walls = [Block(pygame.Color("chocolate"), (0,1000,3000,1)),
                  Block(pygame.Color("chocolate"), (0,0,1,1000)),
                  Block(pygame.Color("chocolate"), (3000,0,1,3000))]
-        static = [Block(pygame.Color("black"), make_blockx(5, 19, block_size)),
-                Block(pygame.Color("black"), make_blockx(6, 18, block_size)),
-                Block(pygame.Color("black"), make_blockx(8, 18, block_size)),
-                Block(pygame.Color("black"), make_blockx(8, 19, block_size)),
-                Block(pygame.Color("black"), make_blockx(8, 17, block_size)),
+        static = [Block(pygame.Color("black"), make_block(5, 19, block_size)),
+                Block(pygame.Color("black"), make_block(6, 18, block_size)),
+                Block(pygame.Color("black"), make_block(8, 18, block_size)),
+                Block(pygame.Color("black"), make_block(8, 19, block_size)),
+                Block(pygame.Color("black"), make_block(8, 17, block_size)),
                   ]
-        moving = [HurtBlock(pygame.Color("red"), (500, 950, block_size, block_size)),
+        moving = [HurtBlock(pygame.Color("red"), make_block(10, 19, block_size)),
                   ]#325
         
         return pygame.sprite.Group(walls, static, moving)
@@ -69,13 +69,15 @@ class MainGameScreen(object):
             if event.type == pygame.QUIT:
                 pygame.quit()
             if self.keys[pygame.K_ESCAPE]:
-                self.done = True
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_UP:
+                self.done = True 
+            elif event.type == pygame.KEYDOWN or event.type == pygame.K_w:
+                if event.key == pygame.K_UP or event.key == pygame.K_w:
+                    
                     self.player.jump(self.obstacles)
-            elif event.type == pygame.KEYUP:
+            elif event.type == pygame.KEYUP or event.type == pygame.K_w:
                 if event.key == pygame.K_SPACE:
                     self.player.jump_cut()
+                    
 
     def update(self, ):
         
