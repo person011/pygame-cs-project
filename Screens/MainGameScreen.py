@@ -42,16 +42,16 @@ class MainGameScreen(object):
         block_size=50
         def make_block(x, y, size):
             return (x*size, y*size, size, size)
-        walls = [Block(pygame.Color("chocolate"), (0,1000,3000,1)),
-                 Block(pygame.Color("chocolate"), (0,0,1,1000)),
-                 Block(pygame.Color("chocolate"), (3000,0,1,3000))]
-        static = [Block(pygame.Color("black"), make_block(5, 19, block_size)),
-                Block(make_block(6, 18, block_size), image="Images/dirt.png"),
-                Block(pygame.Color("black"), make_block(8, 18, block_size)),
-                Block(pygame.Color("black"), make_block(8, 19, block_size)),
-                Block(pygame.Color("black"), make_block(8, 17, block_size)),
+        walls = [Block((0,1000,3000,1),color=pygame.Color("chocolate")),
+                 Block((0,0,1,1000),color=pygame.Color("chocolate")),
+                 Block((3000,0,1,3000),color=pygame.Color("chocolate"))]
+        static = [Block( make_block(5, 19, block_size), color=pygame.Color("black")),
+                Block(make_block(6, 18, block_size), image='Images/dirt.png'),
+                Block(make_block(8, 18, block_size), color=pygame.Color("black")),
+                Block(make_block(8, 19, block_size), color=pygame.Color("black")),
+                Block(make_block(8, 17, block_size), color=pygame.Color("black")),
                   ]
-        moving = [HurtBlock(pygame.Color("red"), make_block(10, 19, block_size)),
+        moving = [HurtBlock(make_block(10, 19, block_size), color=pygame.Color("red")),
                   ]#325
         
         return pygame.sprite.Group(walls, static, moving)

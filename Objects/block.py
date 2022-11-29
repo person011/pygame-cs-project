@@ -6,12 +6,14 @@ class Block(pygame.sprite.Sprite):
     """A class representing solid obstacles."""
     def __init__(self, rect, image=None, color=None):
         """The color is an (r,g,b) tuple; rect is a rect-style argument."""
+        
         pygame.sprite.Sprite.__init__(self)
         self.rect = pygame.Rect(rect)
         if image==None:
             self.image = pygame.Surface(self.rect.size).convert()
             self.image.fill(color)
         else:
+            
             self.image=pygame.image.load(image)
         self.type = "normal"
         
