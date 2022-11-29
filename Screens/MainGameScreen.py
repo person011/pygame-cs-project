@@ -46,7 +46,7 @@ class MainGameScreen(object):
                  Block(pygame.Color("chocolate"), (0,0,1,1000)),
                  Block(pygame.Color("chocolate"), (3000,0,1,3000))]
         static = [Block(pygame.Color("black"), make_block(5, 19, block_size)),
-                Block(pygame.Color("black"), make_block(6, 18, block_size)),
+                Block(make_block(6, 18, block_size), image="Images/dirt.png"),
                 Block(pygame.Color("black"), make_block(8, 18, block_size)),
                 Block(pygame.Color("black"), make_block(8, 19, block_size)),
                 Block(pygame.Color("black"), make_block(8, 17, block_size)),
