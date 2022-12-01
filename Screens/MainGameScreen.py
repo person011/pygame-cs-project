@@ -19,7 +19,7 @@ class MainGameScreen(object):
         self.fps = 60.0
         self.keys = pygame.key.get_pressed()
         self.done = False
-        self.player = Player((50,875), 4, (50, 875))
+        self.player = Player((50,870), 4, (50, 870))
         self.viewport = self.screen.get_rect()
         #print(self.viewport)
         self.HealthBar=HealthBar(self.player)
@@ -45,12 +45,14 @@ class MainGameScreen(object):
         walls = [Block((0,1000,3000,1),color=pygame.Color("chocolate")),
                  Block((0,0,1,1000),color=pygame.Color("chocolate")),
                  Block((3000,0,1,3000),color=pygame.Color("chocolate"))]
-        static = [Block( make_block(5, 19, block_size), color=pygame.Color("black")),
+        """static = [Block( make_block(5, 19, block_size), color=pygame.Color("black")),
                 Block(make_block(6, 18, block_size), image='Images/dirt.png'),
                 Block(make_block(8, 18, block_size), color=pygame.Color("black")),
                 Block(make_block(8, 19, block_size), color=pygame.Color("black")),
                 Block(make_block(8, 17, block_size), color=pygame.Color("black")),
-                  ]
+                  ]"""
+            #60
+        static= [Block(make_block(i, i%60, block_size), color=pygame.Color("black")) for i in range(1200)]
         moving = [HurtBlock(make_block(10, 19, block_size), color=pygame.Color("red")),
                   ]#325
         
