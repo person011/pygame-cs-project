@@ -19,7 +19,7 @@ class MainGameScreen(object):
         self.fps = 60.0
         self.keys = pygame.key.get_pressed()
         self.done = False
-        self.player = Player((50,870), 4, (50, 870))
+        self.player = Player((50,400), 4, (50, 400))
         self.viewport = self.screen.get_rect()
         #print(self.viewport)
         self.HealthBar=HealthBar(self.player)
@@ -52,8 +52,13 @@ class MainGameScreen(object):
                 Block(make_block(8, 17, block_size), color=pygame.Color("black")),
                   ]"""
             #60
-        static= [Block(make_block(i, i%60, block_size), color=pygame.Color("black")) for i in range(1200)]
-        moving = [HurtBlock(make_block(10, 19, block_size), color=pygame.Color("red")),
+        
+        #static= [Block(make_block(i, i%60, block_size), color=pygame.Color("black")) for i in range(1200)]
+        static= []
+        for i in range(60):
+            for ii in range(10):
+                static.append(Block(make_block(i, 19-ii, block_size), color=pygame.Color("black")))
+        moving = [HurtBlock(make_block(10, 9, block_size), color=pygame.Color("red")),
                   ]#325
         
         return pygame.sprite.Group(walls, static, moving)
