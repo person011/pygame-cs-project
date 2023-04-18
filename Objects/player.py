@@ -22,6 +22,7 @@ class Player(_Physics, pygame.sprite.Sprite):
         self.collide_below = False
         self.main_health=100
         self.health=100
+        self.stamina = 100
         self.can_get_hurt=True
         self.spawn_point=spawn_point
         self.start_ticks=pygame.time.get_ticks()
@@ -59,6 +60,14 @@ class Player(_Physics, pygame.sprite.Sprite):
         if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
             self.main_image=self.image
             self.x_vel += self.speed
+        if keys[pygame.K_LSHIFT]:
+            self.dashing()
+        else:
+            self.speed = 4
+    def dashing(self):
+        self.speed = 10
+
+    
 
     def get_position(self, obstacles):
         
