@@ -6,8 +6,12 @@ from Objects.player import Player
 from Objects.block import Block, HurtBlock
 from Objects.health_bar import HealthBar
 from config import *
-
-
+from Objects.fps import show_fps
+from MainGameScreenConfig import *
+from Properties.make_block import make_block
+from Objects.landscape import Landscape
+from Properties.make_mountains import make_mountain
+from Objects.block import block_map
 class MainGameScreen(object):
     
     def __init__(self):
@@ -19,32 +23,35 @@ class MainGameScreen(object):
         self.fps = 60.0
         self.keys = pygame.key.get_pressed()
         self.done = False
-        self.player = Player((50,400), 4, (50, 400))
+        self.player = Player((50,300), 4, (50, 300))
         self.viewport = self.screen.get_rect()
         #print(self.viewport)
         self.HealthBar=HealthBar(self.player)
-        self.level = pygame.Surface((3050, 1050)).convert()
+        #3050, 1050
+        self.level = pygame.Surface((5050, 1050)).convert()
         self.overlay=pygame.display.get_surface()
         self.level_rect = self.level.get_rect()
         
-        self.win_text,self.win_rect = self.make_text()
+        #self.win_text,self.win_rect = self.make_text()
         self.obstacles = self.make_obstacles()
         #self.block_size=50
     def make_text(self):
         
         font = pygame.font.Font(None, 100)
-        message = ""
-        text = font.render(message, True, (100,100,175))
-        rect = text.get_rect(centerx=self.level_rect.centerx, y=100)
-        return text, rect
+        message = str(self.fps)
+        fps = font.render(message, True, (100,100,175))
+        #rect = fps.get_rect(centerx=self.level_rect.centerx, y=100)
+        #fps = self.smallfont.render(str(MainGameScreen.fps), True, (255, 255, 255))
+        
+        #return fps, rect
 
     def make_obstacles(self):
-        block_size=50
-        def make_block(x, y, size):
-            return (x*size, y*size, size, size)
-        walls = [Block((0,1000,3000,1),color=pygame.Color("chocolate")),
-                 Block((0,0,1,1000),color=pygame.Color("chocolate")),
-                 Block((3000,0,1,3000),color=pygame.Color("chocolate"))]
+        
+        
+        walls = [Block((0,1000,wall_width,1),color=pygame.Color("chocolate")),
+                 Block((0,0,1,wall_height),color=pygame.Color("chocolate")),
+                 Block((wall_width,0,1,wall_height),color=pygame.Color("chocolate")),
+                 Block((0,0,wall_width,0),color=pygame.Color("chocolate"))]
         """static = [Block( make_block(5, 19, block_size), color=pygame.Color("black")),
                 Block(make_block(6, 18, block_size), image='Images/dirt.png'),
                 Block(make_block(8, 18, block_size), color=pygame.Color("black")),
@@ -54,12 +61,23 @@ class MainGameScreen(object):
             #60
         
         #static= [Block(make_block(i, i%60, block_size), color=pygame.Color("black")) for i in range(1200)]
-        static= []
-        for i in range(60):
+        static= [Block( make_block(12, 9, block_size), color=pygame.Color("black"))]
+        """for i in range(100):
+            for ii in range(10):
+                static.append(Block(make_block(i, 19-ii, block_size), color=pygame.Color("black")))"""
+        
+        for i in range(100):
             for ii in range(10):
                 static.append(Block(make_block(i, 19-ii, block_size), color=pygame.Color("black")))
         moving = [HurtBlock(make_block(10, 9, block_size), color=pygame.Color("red")),
                   ]#325
+        landscape=Landscape((10, -11, 100, 20), block_map)
+        make_mountain(landscape)
+        make_mountain(landscape)
+        make_mountain(landscape)
+        make_mountain(landscape)
+        #landscape.print(show_coordinates=True)
+        landscape.add_landscape_to_game(static)
         
         return pygame.sprite.Group(walls, static, moving)
 
@@ -100,12 +118,13 @@ class MainGameScreen(object):
         
         
         self.obstacles.draw(self.level)
-        self.level.blit(self.win_text, self.win_rect)
+        #self.level.blit(self.win_text, self.win_rect)
         self.player.draw(self.level)
         self.screen.blit(self.level, (0,0), self.viewport)
     def draw_overlay(self):
         
         self.HealthBar.draw(self.overlay)
+        show_fps(self.overlay, self.clock.get_fps())
     def display_fps(self):
         
         caption = "{} - FPS: {:.2f}".format(CAPTION, self.clock.get_fps())
@@ -119,6 +138,7 @@ class MainGameScreen(object):
             self.draw()
             self.draw_overlay()
             pygame.display.update()
+        
             self.clock.tick(self.fps)
             self.display_fps()
             

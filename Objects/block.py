@@ -2,9 +2,10 @@ import pygame
 import time
 
 
+
 class Block(pygame.sprite.Sprite):
     """A class representing solid obstacles."""
-    def __init__(self, rect, image=None, color=None):
+    def __init__(self, rect, image=None, color=pygame.Color("black")):
         """The color is an (r,g,b) tuple; rect is a rect-style argument."""
         
         pygame.sprite.Sprite.__init__(self)
@@ -43,7 +44,9 @@ class HurtBlock(Block):
             player.hurt_player(10)
             
 
-            
+
+
+block_map={1:Block, 2:HurtBlock}
                 
 
     
