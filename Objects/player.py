@@ -16,7 +16,7 @@ class Player(_Physics, pygame.sprite.Sprite):
         self.rect = self.image.get_rect(topleft=location)
         self.speed = speed
         #-9, -3
-        self.jump_power = -12.0
+        self.jump_power = -12.7
         self.jump_cut_magnitude = -3.0
         self.on_moving = False
         self.collide_below = False
