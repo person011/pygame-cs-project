@@ -31,7 +31,7 @@ class MainGameScreen(object):
         self.level = pygame.Surface((5050, 1050)).convert()
         self.overlay=pygame.display.get_surface()
         self.level_rect = self.level.get_rect()
-        
+        print(self.level_rect)
         #self.win_text,self.win_rect = self.make_text()
         self.obstacles = self.make_obstacles()
         #self.block_size=50
@@ -71,7 +71,8 @@ class MainGameScreen(object):
                 static.append(Block(make_block(i, 19-ii, block_size), color=pygame.Color("black")))
         moving = [HurtBlock(make_block(10, 9, block_size), color=pygame.Color("red")),
                   ]#325
-        landscape=Landscape((10, -11, 100, 20), block_map)
+        #10, -11, 100, 20
+        landscape=Landscape((10, -11, 100, 30), block_map)
         make_mountain(landscape)
         make_mountain(landscape)
         make_mountain(landscape)
