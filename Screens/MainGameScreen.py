@@ -5,6 +5,7 @@ from Properties.size import size_x, size_y
 from Objects.player import Player
 from Objects.block import Block, HurtBlock
 from Objects.health_bar import HealthBar
+from Objects.stamina_bar import StaminaBar
 from config import *
 from Objects.fps import show_fps
 from MainGameScreenConfig import *
@@ -27,6 +28,7 @@ class MainGameScreen(object):
         self.viewport = self.screen.get_rect()
         #print(self.viewport)
         self.HealthBar=HealthBar(self.player)
+        self.StaminaBar=StaminaBar(self.player)
         #3050, 1050
         self.level = pygame.Surface((5050, 2050)).convert()
         self.overlay=pygame.display.get_surface()
@@ -72,11 +74,10 @@ class MainGameScreen(object):
         moving = [HurtBlock(make_block(10, 9, block_size), color=pygame.Color("red")),
                   ]#325
         #10, -11, 100, 20
-        landscape=Landscape((0, 23, 90, 15), block_map)
-        make_mountain(landscape)
-        make_mountain(landscape)
-        make_mountain(landscape)
-        make_mountain(landscape)
+        landscape=Landscape((0, 23, 100, 15), block_map)
+        for i in range(10):
+            make_mountain(landscape)
+        
         #landscape.print(show_coordinates=True)
         landscape.add_landscape_to_game(static)
         
@@ -125,6 +126,7 @@ class MainGameScreen(object):
     def draw_overlay(self):
         
         self.HealthBar.draw(self.overlay)
+        self.StaminaBar.draw(self.overlay)
         show_fps(self.overlay, self.clock.get_fps())
     def display_fps(self):
         

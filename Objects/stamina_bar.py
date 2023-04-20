@@ -6,7 +6,7 @@ class StaminaBar:
         self.smallfont = pygame.font.SysFont('Corbel', 35)
        
     def draw(self, screen):
-        text = self.smallfont.render(str(self.player.health), True, (255, 255, 255))
-        screen.blit(text, (5, 80))
-        pygame.draw.rect(screen, (0, 0, 0),  [5, 150, 210, 25])
-        pygame.draw.rect(screen, (255, 0, 0), [10, 155, self.player.health*2, 15])
+        text = self.smallfont.render(str(self.player.stamina), True, (255, 255, 255))
+        screen.blit(text, (5, 140))
+        pygame.draw.rect(screen, (0, 0, 0),  [5, 110, 210, 25])
+        pygame.draw.rect(screen, (253, 218, 13), [10, 115, self.player.stamina*2, 15])

@@ -63,14 +63,23 @@ class Player(_Physics, pygame.sprite.Sprite):
             self.main_image=self.image
             self.x_vel += self.speed
         if keys[pygame.K_LSHIFT]:
-            self.dashing()
+            
+            if self.stamina>0:
+                self.dashing()
+                self.stamina-=1
+            else:
+                self.speed = self.original_speed
+                self.jump_power=self.original_jump_power
         else:
             self.speed = self.original_speed
             self.jump_power=self.original_jump_power
+            if self.stamina<100:
+                self.stamina+=1
     def dashing(self):
-        self.speed = 10
-        self.jump_power=-17
-
+        if self.stamina>0:
+            self.speed = 10
+            self.jump_power=-17
+        
 
     
 
