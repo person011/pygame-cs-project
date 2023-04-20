@@ -14,8 +14,10 @@ class Player(_Physics, pygame.sprite.Sprite):
         self.image_left=pygame.transform.flip(self.image, True, False)
         self.main_image=self.image
         self.rect = self.image.get_rect(topleft=location)
+        self.original_speed=speed
         self.speed = speed
         #-9, -3
+        self.original_jump_power=-12.7
         self.jump_power = -12.7
         self.jump_cut_magnitude = -3.0
         self.on_moving = False
@@ -63,9 +65,12 @@ class Player(_Physics, pygame.sprite.Sprite):
         if keys[pygame.K_LSHIFT]:
             self.dashing()
         else:
-            self.speed = 4
+            self.speed = self.original_speed
+            self.jump_power=self.original_jump_power
     def dashing(self):
         self.speed = 10
+        self.jump_power=-17
+
 
     
 

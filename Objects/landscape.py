@@ -44,4 +44,5 @@ class Landscape:
                 
                 if self.landscape[i][ii] in self.block_keys:
                     game_blocks.append(self.block_keys[self.landscape[i][ii]](make_block(ii+self.rect[0], len(self.landscape)-i+self.rect[1])))
-                    print(make_block(ii, len(self.landscape)-i))
+                    #print(make_block(ii, len(self.landscape)-i))
+                    print(make_block(ii+self.rect[0], len(self.landscape)-i+self.rect[1]))

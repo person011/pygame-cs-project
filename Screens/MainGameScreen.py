@@ -28,7 +28,7 @@ class MainGameScreen(object):
         #print(self.viewport)
         self.HealthBar=HealthBar(self.player)
         #3050, 1050
-        self.level = pygame.Surface((5050, 1050)).convert()
+        self.level = pygame.Surface((5050, 2050)).convert()
         self.overlay=pygame.display.get_surface()
         self.level_rect = self.level.get_rect()
         print(self.level_rect)
@@ -48,7 +48,7 @@ class MainGameScreen(object):
     def make_obstacles(self):
         
         
-        walls = [Block((0,1000,wall_width,1),color=pygame.Color("chocolate")),
+        walls = [Block((0, wall_height,wall_width,1),color=pygame.Color("chocolate")),
                  Block((0,0,1,wall_height),color=pygame.Color("chocolate")),
                  Block((wall_width,0,1,wall_height),color=pygame.Color("chocolate")),
                  Block((0,0,wall_width,0),color=pygame.Color("chocolate"))]
@@ -67,12 +67,12 @@ class MainGameScreen(object):
                 static.append(Block(make_block(i, 19-ii, block_size), color=pygame.Color("black")))"""
         
         for i in range(100):
-            for ii in range(10):
-                static.append(Block(make_block(i, 19-ii, block_size), color=pygame.Color("black")))
+            for ii in range(1):
+                static.append(Block(make_block(i, 39-ii, block_size), color=pygame.Color("black")))
         moving = [HurtBlock(make_block(10, 9, block_size), color=pygame.Color("red")),
                   ]#325
         #10, -11, 100, 20
-        landscape=Landscape((10, -11, 100, 30), block_map)
+        landscape=Landscape((0, 23, 90, 15), block_map)
         make_mountain(landscape)
         make_mountain(landscape)
         make_mountain(landscape)
