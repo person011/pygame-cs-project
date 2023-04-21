@@ -19,7 +19,7 @@ class Block(pygame.sprite.Sprite):
         self.type = "normal"
         
 class HurtBlock(Block):
-    def __init__(self, rect, image=None, color=None):
+    def __init__(self, rect, image=None, color=pygame.Color("red")):
         
         Block.__init__(self, rect, image, color)
         self.rect2=pygame.Rect([rect[0]-1, rect[1]-1, rect[2]+2, rect[3]+2])

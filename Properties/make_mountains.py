@@ -11,7 +11,7 @@ def make_mountain(landscape):
     highest_point=(h_x, h_y)
     #highest_point=(9, 5)
     most_right=len(landscape.landscape[0])
-    print(highest_point)
+    #print(highest_point)
     landscape.make_column(highest_point)
     last_left=highest_point
     last_right=highest_point

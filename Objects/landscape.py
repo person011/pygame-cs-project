@@ -1,7 +1,7 @@
 import numpy as np
 from Properties.make_block import make_block
 from MainGameScreenConfig import block_size
-
+import random
 class Landscape:
     def __init__(self, rect,block_keys):
         self.size=(rect[2], rect[3])
@@ -36,7 +36,10 @@ class Landscape:
         return None
     def make_column(self, point):
         for i in range(point[1]):
-            self.landscape[i][point[0]]=1
+            if random.random()<0.1 and i ==point[1]-1:
+                self.landscape[i][point[0]]=2
+            else:
+                self.landscape[i][point[0]]=1
         return self.landscape
     def add_landscape_to_game(self, game_blocks):
         for i in range(len(self.landscape)):
@@ -45,4 +48,4 @@ class Landscape:
                 if self.landscape[i][ii] in self.block_keys:
                     game_blocks.append(self.block_keys[self.landscape[i][ii]](make_block(ii+self.rect[0], len(self.landscape)-i+self.rect[1])))
                     #print(make_block(ii, len(self.landscape)-i))
-                    print(make_block(ii+self.rect[0], len(self.landscape)-i+self.rect[1]))
+                    #print(make_block(ii+self.rect[0], len(self.landscape)-i+self.rect[1]))

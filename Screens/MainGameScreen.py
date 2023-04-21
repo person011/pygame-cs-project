@@ -13,6 +13,7 @@ from Properties.make_block import make_block
 from Objects.landscape import Landscape
 from Properties.make_mountains import make_mountain
 from Objects.block import block_map
+
 class MainGameScreen(object):
     
     def __init__(self):
@@ -33,7 +34,7 @@ class MainGameScreen(object):
         self.level = pygame.Surface((5050, 2050)).convert()
         self.overlay=pygame.display.get_surface()
         self.level_rect = self.level.get_rect()
-        print(self.level_rect)
+        #print(self.level_rect)
         #self.win_text,self.win_rect = self.make_text()
         self.obstacles = self.make_obstacles()
         #self.block_size=50
@@ -71,13 +72,14 @@ class MainGameScreen(object):
         for i in range(100):
             for ii in range(1):
                 static.append(Block(make_block(i, 39-ii, block_size), color=pygame.Color("black")))
-        moving = [HurtBlock(make_block(10, 9, block_size), color=pygame.Color("red")),
-                  ]#325
+        #moving = [HurtBlock(make_block(10, 9, block_size), color=pygame.Color("red")),
+                  #]#325
+        moving=[]
         #10, -11, 100, 20
         landscape=Landscape((0, 23, 100, 15), block_map)
         for i in range(10):
             make_mountain(landscape)
-        
+        print(self.obstacles)
         #landscape.print(show_coordinates=True)
         landscape.add_landscape_to_game(static)
         
