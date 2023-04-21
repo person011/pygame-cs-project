@@ -79,7 +79,7 @@ class MainGameScreen(object):
         landscape=Landscape((0, 23, 100, 15), block_map)
         for i in range(10):
             make_mountain(landscape)
-        print(self.obstacles)
+        
         #landscape.print(show_coordinates=True)
         landscape.add_landscape_to_game(static)
         
