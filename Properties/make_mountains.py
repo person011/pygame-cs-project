@@ -45,6 +45,8 @@ def make_mountain(landscape):
                 left_plus_y=0
             left_y=[last_left[1]-left_minus_y, last_left[1]+left_plus_y]
             left_y.sort()
+            if left_y[1]>5:
+                left_y[1]=5
             left=(highest_point[0]-i-1, random.randint(left_y[0], left_y[1]))
             landscape.make_column(left)
             last_left=left
