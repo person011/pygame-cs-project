@@ -1,6 +1,6 @@
 import numpy as np
 from Properties.make_block import make_block
-from MainGameScreenConfig import block_size
+#from MainGameScreenConfig import block_size
 import random
 class Landscape:
     def __init__(self, rect,block_keys):

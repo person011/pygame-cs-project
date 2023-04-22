@@ -1,3 +1,3 @@
-from MainGameScreenConfig import block_size
-def make_block(x, y, size=block_size):
+from MainGameScreenConfig import BLOCK_SIZE
+def make_block(x, y, size=BLOCK_SIZE):
     return (x*size, y*size, size, size)

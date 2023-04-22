@@ -36,6 +36,7 @@ class MainGameScreen(object):
         self.level_rect = self.level.get_rect()
         #print(self.level_rect)
         #self.win_text,self.win_rect = self.make_text()
+        
         self.obstacles = self.make_obstacles()
         #self.block_size=50
     def make_text(self):
@@ -47,31 +48,23 @@ class MainGameScreen(object):
         #fps = self.smallfont.render(str(MainGameScreen.fps), True, (255, 255, 255))
         
         #return fps, rect
-
+    
     def make_obstacles(self):
-        
-        
-        walls = [Block((0, wall_height,wall_width,1),color=pygame.Color("chocolate")),
-                 Block((0,0,1,wall_height),color=pygame.Color("chocolate")),
-                 Block((wall_width,0,1,wall_height),color=pygame.Color("chocolate")),
-                 Block((0,0,wall_width,0),color=pygame.Color("chocolate"))]
-        """static = [Block( make_block(5, 19, block_size), color=pygame.Color("black")),
-                Block(make_block(6, 18, block_size), image='Images/dirt.png'),
-                Block(make_block(8, 18, block_size), color=pygame.Color("black")),
-                Block(make_block(8, 19, block_size), color=pygame.Color("black")),
-                Block(make_block(8, 17, block_size), color=pygame.Color("black")),
-                  ]"""
+        walls = [Block((0, WALL_HEIGHT,WALL_WIDTH,1),color=pygame.Color("chocolate"), type="wall"),
+                 Block((0,0,1,WALL_HEIGHT),color=pygame.Color("chocolate"), type="wall"),
+                 Block((WALL_WIDTH,0,1,WALL_HEIGHT),color=pygame.Color("chocolate"), type="wall"),
+                 Block((0,0,WALL_WIDTH,0),color=pygame.Color("chocolate"), type="wall")]
             #60
         
         #static= [Block(make_block(i, i%60, block_size), color=pygame.Color("black")) for i in range(1200)]
-        static= [Block( make_block(12, 9, block_size), color=pygame.Color("black"))]
+        static= [Block( make_block(12, 9, BLOCK_SIZE), color=pygame.Color("black"))]
         """for i in range(100):
             for ii in range(10):
                 static.append(Block(make_block(i, 19-ii, block_size), color=pygame.Color("black")))"""
         
         for i in range(100):
             for ii in range(1):
-                static.append(Block(make_block(i, 39-ii, block_size), color=pygame.Color("black")))
+                static.append(Block(make_block(i, 39-ii, BLOCK_SIZE), color=pygame.Color("black")))
         #moving = [HurtBlock(make_block(10, 9, block_size), color=pygame.Color("red")),
                   #]#325
         moving=[]
@@ -112,16 +105,27 @@ class MainGameScreen(object):
         
         self.keys = pygame.key.get_pressed()
         self.player.pre_update(self.obstacles)
-        self.obstacles.update(self.player, self.obstacles)
+        for obstacle in self.obstacles:
+            #if obstacle.rect.x>self.player.rect[0]-res[0]/2 and obstacle.rect.x<self.player.rect[0]+res[0]/2:
+            if obstacle.type=="wall":
+                print(1)
+            if obstacle.rect.x>self.player.rect[0]-100/2 and obstacle.rect.x<self.player.rect[0]+100/2:
+                obstacle.update(self.player, self.obstacles)
+        #self.obstacles.update(self.player, self.obstacles)
+        
         self.player.update(self.obstacles, self.keys, )
+        
         self.update_viewport()
 
     def draw(self, ):
         
         self.level.fill((82, 84, 84))
         
+        for obstacle in self.obstacles:
+            if obstacle.rect.x>self.player.rect[0]-(RES[0]+BLOCK_SIZE)/2 and obstacle.rect.x<self.player.rect[0]+(RES[0]+BLOCK_SIZE)/2:
+                obstacle.draw(self.level)
         
-        self.obstacles.draw(self.level)
+        #self.obstacles.draw(self.level)
         #self.level.blit(self.win_text, self.win_rect)
         self.player.draw(self.level)
         self.screen.blit(self.level, (0,0), self.viewport)

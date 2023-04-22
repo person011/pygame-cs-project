@@ -1,5 +1,5 @@
 
-block_size=50
+BLOCK_SIZE=50
 
-wall_width=5000
-wall_height=2000
+WALL_WIDTH=5000
+WALL_HEIGHT=2000
