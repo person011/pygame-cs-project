@@ -107,9 +107,12 @@ class MainGameScreen(object):
         self.player.pre_update(self.obstacles)
         for obstacle in self.obstacles:
             #if obstacle.rect.x>self.player.rect[0]-res[0]/2 and obstacle.rect.x<self.player.rect[0]+res[0]/2:
-            if obstacle.type=="wall":
-                print(1)
-            if obstacle.rect.x>self.player.rect[0]-100/2 and obstacle.rect.x<self.player.rect[0]+100/2:
+            if obstacle.type!="wall":
+                
+                if obstacle.rect.x>self.player.rect[0]-(RES[0]+BLOCK_SIZE) and obstacle.rect.x<self.player.rect[0]+(RES[0]+BLOCK_SIZE):
+                    if obstacle.rect.y>self.player.rect[1]-(RES[1]+BLOCK_SIZE) and obstacle.rect.y<self.player.rect[1]+(RES[1]+BLOCK_SIZE):
+                        obstacle.update(self.player, self.obstacles)
+            else:
                 obstacle.update(self.player, self.obstacles)
         #self.obstacles.update(self.player, self.obstacles)
         
@@ -122,9 +125,12 @@ class MainGameScreen(object):
         self.level.fill((82, 84, 84))
         
         for obstacle in self.obstacles:
-            if obstacle.rect.x>self.player.rect[0]-(RES[0]+BLOCK_SIZE)/2 and obstacle.rect.x<self.player.rect[0]+(RES[0]+BLOCK_SIZE)/2:
+            if obstacle.type!="wall":
+                if obstacle.rect.x>self.player.rect[0]-(RES[0]+BLOCK_SIZE) and obstacle.rect.x<self.player.rect[0]+(RES[0]+BLOCK_SIZE):
+                    if obstacle.rect.y>self.player.rect[1]-(RES[1]+BLOCK_SIZE) and obstacle.rect.y<self.player.rect[1]+(RES[1]+BLOCK_SIZE):
+                        obstacle.draw(self.level)
+            else:
                 obstacle.draw(self.level)
-        
         #self.obstacles.draw(self.level)
         #self.level.blit(self.win_text, self.win_rect)
         self.player.draw(self.level)

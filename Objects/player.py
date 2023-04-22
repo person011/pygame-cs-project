@@ -14,6 +14,7 @@ class Player(_Physics, pygame.sprite.Sprite):
         self.image_left=pygame.transform.flip(self.image, True, False)
         self.main_image=self.image
         self.rect = self.image.get_rect(topleft=location)
+        self.rect2=pygame.Rect([self.rect[0], self.rect[1], self.rect[2], self.rect[3]])
         self.original_speed=speed
         self.speed = speed
         #-9, -3

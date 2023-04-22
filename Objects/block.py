@@ -23,7 +23,7 @@ class HurtBlock(Block):
     def __init__(self, rect, image=None, color=pygame.Color("red"), type="static"):
         
         Block.__init__(self, rect, image, color, type)
-        self.rect2=pygame.Rect([rect[0]-1, rect[1]-1, rect[2]+2, rect[3]+2])
+        self.rect2=pygame.Rect([rect[0]-1, rect[1]-1, rect[2]+2, rect[3]+3])
     def update(self, player, obstacles):
         
         #obstacles = obstacles.copy()
