@@ -26,7 +26,7 @@ def make_mountain(landscape):
     i=0
     while True:
         #print(print_landscape(landscape.))
-        if last_right[1]==1 or last_left[1]==1:
+        if last_right[1]==1 and last_left[1]==1:
             if random.randint(1, 3)%2==0:
                 break
         if left_minus_y==1 and right_minus_y==1:
@@ -34,8 +34,10 @@ def make_mountain(landscape):
         if disable_left ==True and disable_right==True:
             break
         if last_left[0]<1:
+            print(last_left, "l")
             disable_left=True
         if last_right[0]>most_right-2:
+            print(last_right, "r")
             disable_right=True
         if disable_left==False:
             if last_left[1]<4:
@@ -45,8 +47,10 @@ def make_mountain(landscape):
                 left_plus_y=0
             left_y=[last_left[1]-left_minus_y, last_left[1]+left_plus_y]
             left_y.sort()
-            if left_y[1]>5:
+            """if left_y[1]>5:
                 left_y[1]=5
+            if left_y[0]>=5:
+                left_y[0]=left_y[1]-1"""
             left=(highest_point[0]-i-1, random.randint(left_y[0], left_y[1]))
             landscape.make_column(left)
             last_left=left
