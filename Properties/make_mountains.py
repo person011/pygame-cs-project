@@ -34,10 +34,10 @@ def make_mountain(landscape):
         if disable_left ==True and disable_right==True:
             break
         if last_left[0]<1:
-            print(last_left, "l")
+            #print(last_left, "l")
             disable_left=True
         if last_right[0]>most_right-2:
-            print(last_right, "r")
+            #print(last_right, "r")
             disable_right=True
         if disable_left==False:
             if last_left[1]<4:
