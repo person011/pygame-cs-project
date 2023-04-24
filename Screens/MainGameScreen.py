@@ -3,6 +3,7 @@ import os
 from Properties.button import Button
 from Properties.size import size_x, size_y
 from Objects.player import Player
+from Objects.bat import Bat
 from Objects.block import Block, HurtBlock
 from Objects.health_bar import HealthBar
 from Objects.stamina_bar import StaminaBar
@@ -26,6 +27,7 @@ class MainGameScreen(object):
         self.keys = pygame.key.get_pressed()
         self.done = False
         self.player = Player((50,300), 4, (50, 300))
+        self.bat=Bat((200, 300), 4)
         self.viewport = self.screen.get_rect()
         #print(self.viewport)
         self.HealthBar=HealthBar(self.player)
@@ -117,7 +119,7 @@ class MainGameScreen(object):
         #self.obstacles.update(self.player, self.obstacles)
         
         self.player.update(self.obstacles, self.keys, )
-        
+        self.bat.update()
         self.update_viewport()
 
     def draw(self, ):
@@ -134,6 +136,7 @@ class MainGameScreen(object):
         #self.obstacles.draw(self.level)
         #self.level.blit(self.win_text, self.win_rect)
         self.player.draw(self.level)
+        self.bat.draw(self.level)
         self.screen.blit(self.level, (0,0), self.viewport)
     def draw_overlay(self):
         
