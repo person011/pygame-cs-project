@@ -1,6 +1,6 @@
 import pygame
 from Properties._Physics import _Physics
-from math import sin, cos
+from math import sin, cos, radians
 
 class Bat(pygame.sprite.Sprite):
     def __init__(self, location,speed):
@@ -24,9 +24,9 @@ class Bat(pygame.sprite.Sprite):
             unaltered = False
         return unaltered
     def move(self):
-        direction=60
-        self.rect.x += cos(direction) * self.speed
-        self.rect.y += sin(direction) * self.speed
+        direction=90
+        self.rect.x += cos(radians(direction)) * self.speed
+        self.rect.y += sin(radians(direction)) * self.speed
     def draw(self, surface):
         
         surface.blit(self.main_image, self.rect)
