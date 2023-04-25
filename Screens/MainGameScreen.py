@@ -27,7 +27,7 @@ class MainGameScreen(object):
         self.keys = pygame.key.get_pressed()
         self.done = False
         self.player = Player((50,300), 4, (50, 300))
-        self.bat=Bat((200, 300), 4)
+        self.bat=Bat((200, 300), 10)
         self.viewport = self.screen.get_rect()
         #print(self.viewport)
         self.HealthBar=HealthBar(self.player)
@@ -119,7 +119,7 @@ class MainGameScreen(object):
         #self.obstacles.update(self.player, self.obstacles)
         
         self.player.update(self.obstacles, self.keys, )
-        self.bat.update()
+        self.bat.update(self.player)
         self.update_viewport()
 
     def draw(self, ):
