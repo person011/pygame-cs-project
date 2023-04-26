@@ -14,6 +14,7 @@ class Bat(pygame.sprite.Sprite):
         self.original_speed=speed
         self.speed = speed
         self.spawn_point=location
+        self.position = pygame.math.Vector2((self.rect.x, self.rect.y))
     def update(self, player):
         self.move(player)
     def check_collisions(self, offset, index, obstacles):
@@ -24,23 +25,14 @@ class Bat(pygame.sprite.Sprite):
             self.rect[index] += (1 if offset[index]<0 else -1)
             unaltered = False
         return unaltered
-    def angle_between(self, p1, p2):
-        ang1 = np.arctan2(*p1[::-1])
-        ang2 = np.arctan2(*p2[::-1])
-        return np.rad2deg((ang1 - ang2) % (2 * np.pi))
     def move(self, player):
-        y_coordinates=[self.rect.y, player.rect.y]
-        y_coordinates.sort()
-        x_coordinates=[self.rect.x, player.rect.x]
-        x_coordinates.sort()
-        angle=atan((y_coordinates[1]-y_coordinates[0])/(x_coordinates[1]-x_coordinates[0]))
-        direction=450-self.angle_between((self.rect.x, self.rect.y), (player.rect.x, player.rect.y))
-        #print(direction)
-        print(self.rect.x, self.rect.y)
-        #direction=115
-        #print(angle, degrees(angle))
-        self.rect.x += cos(radians(direction)) * self.speed
-        self.rect.y += sin(radians(direction)) * self.speed
+        
+        player_position = player.rect.topleft
+        direction = player_position - self.position
+        velocity = direction.normalize() * self.speed
+
+        self.position += velocity
+        self.rect.topleft = self.position
     def draw(self, surface):
         
         surface.blit(self.main_image, self.rect)

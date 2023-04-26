@@ -27,7 +27,7 @@ class MainGameScreen(object):
         self.keys = pygame.key.get_pressed()
         self.done = False
         self.player = Player((50,300), 4, (50, 300))
-        self.bat=Bat((200, 300), 10)
+        self.bat=Bat((200, 300), 4)
         self.viewport = self.screen.get_rect()
         #print(self.viewport)
         self.HealthBar=HealthBar(self.player)
