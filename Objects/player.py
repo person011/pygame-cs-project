@@ -78,6 +78,7 @@ class Player(_Physics, pygame.sprite.Sprite):
             if self.stamina<100:
                 self.stamina+=1
         if keys[pygame.K_p]:
+            
             if self.health<=80:
                 self.potion(20)
     def dashing(self):
