@@ -124,8 +124,9 @@ class MainGameScreen(object):
 
     def draw(self, ):
         
-        self.level.fill((82, 84, 84))
-        
+        #self.level.fill((82, 84, 84))
+        self.level.fill((3, 177, 252))
+
         for obstacle in self.obstacles:
             if obstacle.type!="wall":
                 if obstacle.rect.x>self.player.rect[0]-(RES[0]+BLOCK_SIZE) and obstacle.rect.x<self.player.rect[0]+(RES[0]+BLOCK_SIZE):
