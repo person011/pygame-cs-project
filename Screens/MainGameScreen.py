@@ -33,7 +33,7 @@ class MainGameScreen(object):
         self.HealthBar=HealthBar(self.player)
         self.StaminaBar=StaminaBar(self.player)
         #3050, 1050
-        self.level = pygame.Surface((5050, 2050)).convert()
+        self.level = pygame.Surface((10050, 2050)).convert()
         self.overlay=pygame.display.get_surface()
         self.level_rect = self.level.get_rect()
         #print(self.level_rect)
@@ -64,15 +64,15 @@ class MainGameScreen(object):
             for ii in range(10):
                 static.append(Block(make_block(i, 19-ii, block_size), color=pygame.Color("black")))"""
         
-        for i in range(100):
+        for i in range(200):
             for ii in range(1):
                 static.append(Block(make_block(i, 39-ii, BLOCK_SIZE), color=pygame.Color("black")))
         #moving = [HurtBlock(make_block(10, 9, block_size), color=pygame.Color("red")),
                   #]#325
         moving=[]
         #10, -11, 100, 20
-        landscape=Landscape((0, 23, 100, 15), block_map)
-        for i in range(10):
+        landscape=Landscape((0, 23, 200, 15), block_map)
+        for i in range(40):
             make_mountain(landscape)
         
         #landscape.print(show_coordinates=True)
