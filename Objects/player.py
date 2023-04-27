@@ -32,6 +32,8 @@ class Player(_Physics, pygame.sprite.Sprite):
         self.clock = pygame.time.Clock()
         self.timer=2
         self.dt=0
+    def potion(self, amount):
+        self.health+=amount
     def hurt_player(self, amount):
         #print(self.can_get_hurt)
         if self.can_get_hurt==True:
@@ -75,6 +77,9 @@ class Player(_Physics, pygame.sprite.Sprite):
             self.jump_power=self.original_jump_power
             if self.stamina<100:
                 self.stamina+=1
+        if keys[pygame.K_p]:
+            if self.health<=80:
+                self.potion(20)
     def dashing(self):
         if self.stamina>0:
             self.speed = 10
