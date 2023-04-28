@@ -99,13 +99,14 @@ class MainGameScreen(object):
                 if event.key == pygame.K_UP or event.key == pygame.K_w:
                     
                     self.player.jump(self.obstacles)
-            elif event.type == pygame.KEYUP or event.type == pygame.K_w:
-                if event.key == pygame.K_SPACE:
-                    self.player.jump_cut()
-            if event.type == pygame.K_p:
                 if event.key==pygame.K_p:
                     self.player.potion(20)
                     print(1)
+            elif event.type == pygame.KEYUP or event.type == pygame.K_w:
+                if event.key == pygame.K_SPACE:
+                    self.player.jump_cut()
+            #elif event.type == pygame.KEYDOWN:
+                
 
     def update(self, ):
         
