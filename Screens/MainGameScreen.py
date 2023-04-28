@@ -94,6 +94,7 @@ class MainGameScreen(object):
                 pygame.quit()
             if self.keys[pygame.K_ESCAPE]:
                 self.done = True 
+            
             elif event.type == pygame.KEYDOWN or event.type == pygame.K_w:
                 if event.key == pygame.K_UP or event.key == pygame.K_w:
                     
@@ -101,7 +102,10 @@ class MainGameScreen(object):
             elif event.type == pygame.KEYUP or event.type == pygame.K_w:
                 if event.key == pygame.K_SPACE:
                     self.player.jump_cut()
-                    
+            if event.type == pygame.K_p:
+                if event.key==pygame.K_p:
+                    self.player.potion(20)
+                    print(1)
 
     def update(self, ):
         
