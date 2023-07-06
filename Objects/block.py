@@ -1,5 +1,5 @@
 import pygame
-import time
+
 
 
 
@@ -17,8 +17,11 @@ class Block(pygame.sprite.Sprite):
             
             self.image=pygame.image.load(image)
         self.type = type
+    def __repr__(self):
+        return f"{self.rect.x} {self.rect.y}"
     def draw(self, surface):
         surface.blit(self.image, self.rect)
+
 class HurtBlock(Block):
     def __init__(self, rect, image=None, color=pygame.Color("red"), type="static"):
         

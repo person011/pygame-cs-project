@@ -1,6 +1,8 @@
 import pygame
 from Properties._Physics import _Physics
-import time
+from Properties.round_up_down import *
+from MainGameScreenConfig import *
+from Properties.make_block import *
 
 class Player(_Physics, pygame.sprite.Sprite):
 
@@ -15,6 +17,9 @@ class Player(_Physics, pygame.sprite.Sprite):
         self.main_image=self.image
         self.rect = self.image.get_rect(topleft=location)
         self.rect2=pygame.Rect([self.rect[0], self.rect[1], self.rect[2], self.rect[3]])
+        self.max_surrounding_size=block_size_to_real_size(2)
+        
+        
         self.original_speed=speed
         self.speed = speed
         #-9, -3
@@ -33,41 +38,86 @@ class Player(_Physics, pygame.sprite.Sprite):
         self.timer=2
         self.dt=0
         self.p_presed=0
+        self.is_invinsible=False
+        self.amount_of_pain=0
+        self.timer_event = pygame.USEREVENT+1
+        self.original_hurt_player_counter=1
+        self.hurt_player_counter=1
+        self.hurt_player_has_been_called=False
+        self.surrounding_blocks=[]
+        pygame.time.set_timer(self.timer_event, 1000)
+    def kill_block(self, block_coordinates):
+        x, y = pygame.mouse.get_pos()
+        print(block_coordinates, 1,round_down(x*BLOCK_SIZE,BLOCK_SIZE), round_down(y*BLOCK_SIZE,BLOCK_SIZE))
+        if block_coordinates:
+            
+            self.surrounding_blocks[block_coordinates].kill()
+    def is_block_pressed(self):
+        x, y = pygame.mouse.get_pos()
+        block_size_x=round_down(x*BLOCK_SIZE,BLOCK_SIZE)
+        block_size_y=round_down(y*BLOCK_SIZE,BLOCK_SIZE)
+        if (block_size_x, block_size_y) in self.surrounding_blocks:
+            return (block_size_x, block_size_y)
+        return 
+    def get_surrounding_blocks(self, obstacles,type="block object"):
+        surrounding_player_rect=pygame.Rect([
+            self.rect[0]-self.max_surrounding_size,
+            self.rect[1]-self.max_surrounding_size,
+            self.rect[2]+2*(self.max_surrounding_size),
+            self.rect[3]+2*(self.max_surrounding_size)
+            ])
+        if type=="block object":
+            surrounding_blocks=[]
+            for block in obstacles:
+                if surrounding_player_rect.colliderect(block.rect):
+                    
+                        surrounding_blocks.append(block)
+        else:
+            surrounding_blocks={}
+            for block in obstacles:
+                if surrounding_player_rect.colliderect(block.rect):
+                    
+                        surrounding_blocks[(block.rect.x, block.rect.y)]=block   
+        
+        return surrounding_blocks
     def potion(self, amount):
         
         if self.health<=80:
             self.health+=amount
-        
+    
     def hurt_player(self, amount):
         #print(self.can_get_hurt)
-        if self.can_get_hurt==True:
-            
-            self.timer-=self.dt
-            if self.timer<1:
-                self.timer=2
-                #print(seconds)
-                #seconds=0
-                self.health-=amount
-                self.can_get_hurt=True
-                #seconds=(pygame.time.get_ticks()-self.start_ticks)/1000
-            
-            self.dt=self.clock.tick(60)/1000
-            #print(self.dt, pygame.time.get_ticks())
-            
-            
-            
-        #print(123)
-    
+        self.hurt_player_has_been_called=True
+        if self.is_invinsible==False:
+            self.amount_of_pain+=amount
         return self.health-amount
-    def check_keys(self, keys):
+    
+    def check_keys(self, keys, obstacles):
         
         self.x_vel = 0
+        #self.y_vel=0
         if keys[pygame.K_LEFT] or keys[pygame.K_a]:
             self.main_image=self.image_left
             self.x_vel -= self.speed
         if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
             self.main_image=self.image
             self.x_vel += self.speed
+        if self.is_invinsible==True:
+            
+            self.y_vel=0
+            if keys[pygame.K_UP] or keys[pygame.K_w]:
+                
+                if self.check_above(obstacles)==None:
+                    self.rect.y-=self.speed
+                
+                self.y_vel=-self.speed
+                
+            if keys[pygame.K_DOWN] or keys[pygame.K_s]:
+                
+                if len(self.check_below(obstacles))==0:
+                    self.rect.y+=self.speed
+                self.y_vel=self.speed
+            
         if keys[pygame.K_LSHIFT]:
             
             if self.stamina>0:
@@ -81,12 +131,8 @@ class Player(_Physics, pygame.sprite.Sprite):
             self.jump_power=self.original_jump_power
             if self.stamina<100:
                 self.stamina+=1
-        """if keys[pygame.K_p]:
-            self.p_presed=1
-        #else:
-            if self.p_presed==1:
-                self.potion(20)
-                self.p_pressed=0"""
+        
+            
         
     def dashing(self):
         if self.stamina>0:
@@ -151,34 +197,54 @@ class Player(_Physics, pygame.sprite.Sprite):
         return collide
 
     def jump(self, obstacles):
-        
-        if not self.fall and not self.check_above(obstacles):
-            self.y_vel = self.jump_power
-            self.fall = True
-            self.on_moving = False
+        #for i in obstacles:
+        if self.is_invinsible==False:
+            if not self.fall and not self.check_above(obstacles):
+                self.y_vel = self.jump_power
+                self.fall = True
+                self.on_moving = False
 
     def jump_cut(self):
-        
-        if self.fall:
-            if self.y_vel < self.jump_cut_magnitude:
-                self.y_vel = self.jump_cut_magnitude
+        if self.is_invinsible==False:
+            if self.fall:
+                if self.y_vel < self.jump_cut_magnitude:
+                    self.y_vel = self.jump_cut_magnitude
 
     def pre_update(self, obstacles):
+        self.amount_of_pain=0
+        self.hurt_player_has_been_called=False
+        self.surrounding_blocks=self.get_surrounding_blocks(obstacles, type="list")
+
+        if self.is_invinsible==False:
+            self.collide_below = self.check_below(obstacles)
+            self.check_moving(obstacles)
         
-        self.collide_below = self.check_below(obstacles)
-        self.check_moving(obstacles)
     def kill_player(self):
         self.rect.x=self.spawn_point[0]
         self.rect.y=self.spawn_point[1]
         self.health=self.main_health
-    def update(self, obstacles, keys, ):
+    def update(self, obstacles, keys):
+        
         if self.health<1:
             self.kill_player()
-        self.check_keys(keys)
-        self.get_position(obstacles)
-        self.physics_update()
         
-
+        self.check_keys(keys,obstacles)
+        self.get_position(obstacles)
+        self.get_surrounding_blocks(obstacles)
+        #is_block_pressed=self.is_block_pressed()
+        #self.kill_block(is_block_pressed)
+        if self.is_invinsible==False:
+            
+            self.physics_update()
+        
+    def hurt_player_timer_event(self):
+        self.hurt_player_counter-=1
+        #print(self.amount_of_pain, self.hurt_player_counter)
+        if self.hurt_player_counter==0:
+            self.hurt_player_counter=self.original_hurt_player_counter
+            if self.hurt_player_has_been_called==True:
+                self.health-=self.amount_of_pain
+                
     def draw(self, surface):
         
         surface.blit(self.main_image, self.rect)

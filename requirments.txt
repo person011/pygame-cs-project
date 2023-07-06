@@ -1,0 +1,4 @@
+pygame
+math
+random
+numpy

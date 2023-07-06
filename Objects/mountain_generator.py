@@ -1,13 +1,13 @@
 import numpy as np
 from Properties.make_block import make_block
-#from MainGameScreenConfig import block_size
+from Objects.block import block_map
 import random
-class Landscape:
-    def __init__(self, rect,block_keys):
+class Mountain_generator:
+    def __init__(self, rect):
         self.size=(rect[2], rect[3])
         self.rect=rect
         self.landscape=np.zeros(shape=(self.size[1], self.size[0]), dtype=int)
-        self.block_keys=block_keys
+        self.block_keys=block_map
     def print(self, show_coordinates=False):
         max_number_size_y=len(str(len(self.landscape)-1))
         #max_number_size_x=len(str(len(self.landscape[0])-1))
@@ -42,10 +42,16 @@ class Landscape:
                 self.landscape[i][point[0]]=1
         return self.landscape
     def add_landscape_to_game(self, game_blocks):
+        block_list=[]
+        for i in game_blocks:
+            block_list.append((i.rect.x, i.rect.y))
         for i in range(len(self.landscape)):
             for ii in range(len(self.landscape[0])):
+                new_block_rect=make_block(ii+self.rect[0], len(self.landscape)-i+self.rect[1])
                 
-                if self.landscape[i][ii] in self.block_keys:
-                    game_blocks.append(self.block_keys[self.landscape[i][ii]](make_block(ii+self.rect[0], len(self.landscape)-i+self.rect[1])))
+                if (new_block_rect[0], new_block_rect[1]) not in block_list:
+                    if self.landscape[i][ii] in self.block_keys:
+                        game_blocks.append(self.block_keys[self.landscape[i][ii]](new_block_rect))
+                    
                     #print(make_block(ii, len(self.landscape)-i))
                     #print(make_block(ii+self.rect[0], len(self.landscape)-i+self.rect[1]))

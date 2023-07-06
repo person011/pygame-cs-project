@@ -1,7 +1,4 @@
 import pygame
-from Properties._Physics import _Physics
-from math import sin, cos, radians, atan, degrees
-import numpy as np
 
 class Bat(pygame.sprite.Sprite):
     def __init__(self, location,speed):
